@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HAMAT - Trailer</title>
     <link href="css/fonts.css" rel="stylesheet">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
@@ -15,10 +18,12 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            background-image: url('images/trailer-bg.png');
+            background: radial-gradient(circle at center, #1a2233, #0b0f1a);
+            overflow: hidden;
+            /* background-image: url('images/trailer-bg.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: no-repeat; */
             position: relative;
         }
 
@@ -71,6 +76,8 @@
             align-items: center;
             gap: 15px;
             z-index: 10;
+            
+            animation: fadeInUp 0.6s ease forwards;
         }
 
         .nav-btn {
@@ -96,7 +103,7 @@
         .nav-btn svg {
             width: 20px;
             height: 20px;
-            fill: #3d5a73;
+            fill: #fff;
         }
 
         .home-btn {
@@ -120,13 +127,13 @@
         .home-btn svg {
             width: 20px;
             height: 20px;
-            fill: #3d5a73;
+            fill: #fff;
         }
 
         .home-btn span {
             font-size: 1rem;
             font-weight: 500;
-            color: #3d5a73;
+            color: #fff;
         }
 
         @media (max-width: 600px) {
@@ -134,40 +141,294 @@
                 width: 45px;
                 height: 45px;
             }
+
             .page-arrow.left {
                 left: 15px;
             }
+
             .page-arrow.right {
                 right: 15px;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        .logo-container {
+            position: absolute;
+            right: 35px;
+            top: 35px;
+          animation: fadeInDown 0.6s ease forwards;
+        }
+
+        .logo-container img {
+            height: 60px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            animation: fadeInDown 0.6s ease forwards;
+            top: 4rem;
+            left: calc(50% - 200px);
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .swiper-container {
+            height: 100%;
+            align-content: center;
+        }
+
+        .swiper {
+            padding: 120px 0;
+            transform: scale(0.8);
+        }
+
+        .swiper-slide {
+            width: 70%;
+            height: 75vh;
+            max-height: 800px;
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.6s ease;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 22px;
+        }
+
+
+        .swiper-slide {
+            transform: scale(0.4) !important;
+            /* opacity: 0.15; */
+            z-index: 1;
+        }
+
+        .swiper-slide-active {
+            transform: scale(1) !important;
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+        }
+
+        .swiper {
+            overflow: visible;
+        }
+
+        .swiper-slide-prev,
+        .swiper-slide-next {
+            transform: scale(0.6) !important;
+            /* opacity: 0.45; */
+            z-index: 3;
+        }
+
+        .swiper-slide-prev,
+        .swiper-slide-next {
+            filter: brightness(0.57) saturate(0.4) blur(0.5px);
+            z-index: 4;
+        }
+
+        .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
+            filter: brightness(0.35) saturate(0) blur(2px);
+        }
+
+        .swiper-wrapper {
+            align-items: center;
+        }
+
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white;
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 20px;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            display: none;
+        }
+                /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
     </style>
 </head>
+
 <body>
-    <!-- Left Page Arrow -->
-    <a href="clients.html" class="page-arrow left">
+    <!-- <a href="clients.html" class="page-arrow left">
         <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
     </a>
 
-    <!-- Right Page Arrow -->
     <a href="truck.html" class="page-arrow right">
         <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
     </a>
+ -->
+
+    <div class="logo-container"><img src="images/Hamat_white.png" alt="Logo" class="logo"></div>
+    <h1 class="page-title">Trailer</h1>
+
+    <section style="height: 100vh;">
+        <div class="swiper-container">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="images/trailer4.png" alt="Trailer 4">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer1.png" alt="Trailer 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer2.png" alt="Trailer 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer5.png" alt="Trailer 5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer6.png" alt="Trailer 6">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer4.png" alt="Trailer 4">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer1.png" alt="Trailer 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer2.png" alt="Trailer 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer5.png" alt="Trailer 5">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/trailer6.png" alt="Trailer 6">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-button-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+            </svg>
+        </div>
+        <div class="swiper-button-next">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+            </svg>
+
+        </div>
+        </div>
+    </section>
+
+
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
         <a href="clients.html" class="nav-btn">
-            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
         </a>
 
         <a href="index.html" class="home-btn">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
             <span>Home</span>
         </a>
 
         <a href="truck.html" class="nav-btn">
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+            </svg>
         </a>
     </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".swiper", {
+            slidesPerView: 1.8,
+            centeredSlides: true,
+            loop: true,
+            spaceBetween: -600,   // أكبر سالب = تداخل أكتر
+            grabCursor: true,
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            }
+        });
+
+
+
+    </script>
 </body>
+
 </html>
