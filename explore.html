@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMAT - Explore More</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: url('images/explore-bg.png') no-repeat center center; background-size: cover;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(10, 25, 50, 0.7) 0%, rgba(10, 25, 50, 0.4) 40%, rgba(10, 25, 50, 0.2) 100%);
+            z-index: 0;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .circle-menu {
+            position: relative;
+            width: 500px;
+            height: 500px;
+        }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(145deg, #3d5a73 0%, #2c4a5e 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 5;
+            opacity: 0;
+            animation: fadeInScaleCenter 0.8s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .center-circle:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .center-circle h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.3;
+            letter-spacing: 2px;
+        }
+
+        .menu-item {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeInScale 0.6s ease forwards;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item .label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .menu-item:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.1s; }
+        .menu-item:nth-child(1):hover { transform: translateX(-50%) scale(1.15); }
+
+        .menu-item:nth-child(2) { top: 15%; right: 5%; animation-delay: 0.2s; }
+        .menu-item:nth-child(2):hover { transform: scale(1.15); }
+
+        .menu-item:nth-child(3) { bottom: 15%; right: 5%; animation-delay: 0.3s; }
+        .menu-item:nth-child(3):hover { transform: scale(1.15); }
+
+        .menu-item:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.4s; }
+        .menu-item:nth-child(4):hover { transform: translateX(-50%) scale(1.15); }
+
+        .menu-item:nth-child(5) { bottom: 15%; left: 5%; animation-delay: 0.5s; }
+        .menu-item:nth-child(5):hover { transform: scale(1.15); }
+
+        .menu-item:nth-child(6) { top: 15%; left: 5%; animation-delay: 0.6s; }
+        .menu-item:nth-child(6):hover { transform: scale(1.15); }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInScaleCenter {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .menu-item:nth-child(1) { animation-name: fadeInScaleTranslateX; }
+        .menu-item:nth-child(4) { animation-name: fadeInScaleTranslateX; }
+
+        @keyframes fadeInScaleTranslateX {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        .menu-item svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+            margin-bottom: 10px;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #3d5a73;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .home-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #3d5a73;
+        }
+
+        .home-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #3d5a73;
+        }
+
+        @media (max-width: 600px) {
+            .circle-menu { width: 350px; height: 350px; }
+            .center-circle { width: 120px; height: 120px; }
+            .center-circle h2 { font-size: 1rem; }
+            .menu-item { width: 90px; height: 90px; }
+            .menu-item svg { width: 28px; height: 28px; }
+            .menu-item .label { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="images/Hamat_white.png" alt="HAMAT" style="width: 80px; height: auto;">
+    </div>
+
+    <div class="main-container">
+        <div class="circle-menu">
+            <a href="clients.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><circle cx="18" cy="8" r="2"/></svg>
+                <span class="label">Client</span>
+            </a>
+
+            <a href="trailer.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><rect x="1" y="8" width="18" height="8" rx="1"/><circle cx="5" cy="18" r="2"/><circle cx="15" cy="18" r="2"/><rect x="19" y="10" width="4" height="4"/></svg>
+                <span class="label">Trailer</span>
+            </a>
+
+            <a href="truck.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                <span class="label">Truck</span>
+            </a>
+
+            <a href="participation.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <span class="label">Participation</span>
+            </a>
+
+            <a href="history.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                <span class="label">History</span>
+            </a>
+
+            <a href="contact.html" class="menu-item">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <span class="label">Contact Us</span>
+            </a>
+
+            <div class="center-circle">
+                <h2>EXPLORE<br>MORE</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </a>
+
+        <a href="index.html" class="home-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+
+        <a href="clients.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </a>
+    </div>
+</body>
+</html>
+
+

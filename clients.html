@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMAT - Clients</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: #ffffff;
+            position: relative;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1a365d;
+            margin-top: 2px;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px 120px;
+        }
+
+        /* Title */
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 60px;
+            margin-top: 80px;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+
+        /* Clients Grid */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 60px 80px;
+            max-width: 1100px;
+            padding: 20px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .client-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .client-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .client-logo img {
+            max-width: 180px;
+            max-height: 80px;
+            object-fit: contain;
+            filter: grayscale(0%);
+            transition: all 0.3s ease;
+        }
+
+        .client-logo:hover img {
+            filter: grayscale(0%) brightness(1.05);
+        }
+
+        .client-logo:nth-child(1) { animation-delay: 0.1s; }
+        .client-logo:nth-child(2) { animation-delay: 0.15s; }
+        .client-logo:nth-child(3) { animation-delay: 0.2s; }
+        .client-logo:nth-child(4) { animation-delay: 0.25s; }
+        .client-logo:nth-child(5) { animation-delay: 0.3s; }
+        .client-logo:nth-child(6) { animation-delay: 0.35s; }
+        .client-logo:nth-child(7) { animation-delay: 0.4s; }
+        .client-logo:nth-child(8) { animation-delay: 0.45s; }
+        .client-logo:nth-child(9) { animation-delay: 0.5s; }
+        .client-logo:nth-child(10) { animation-delay: 0.55s; }
+
+        /* Row 3 - Centered */
+        .clients-row-3 {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .clients-row-3 .client-logo {
+            opacity: 1;
+            animation: none;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 40px;
+            left: 45%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: #3d5a73;
+        }
+
+        .nav-btn:hover svg {
+            fill: white;
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #3d5a73;
+            transition: fill 0.3s ease;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #3d5a73;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            background: #3d5a73;
+        }
+
+        .home-btn:hover svg,
+        .home-btn:hover span {
+            fill: white;
+            color: white;
+        }
+
+        .home-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #3d5a73;
+            transition: fill 0.3s ease;
+        }
+
+        .home-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #3d5a73;
+            transition: color 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1000px) {
+            .clients-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            .page-title {
+                font-size: 1.6rem;
+            }
+            .client-logo img {
+                max-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/hamat-logo.png" alt="HAMAT" onerror="this.style.display='none'">
+        <div class="logo-text">HAMAT</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <h1 class="page-title">CLIENTS</h1>
+
+        <div class="clients-grid">
+            <!-- Row 1 -->
+            <div class="client-logo">
+                <img src="images/slb.png" alt="SLB">
+            </div>
+            <div class="client-logo">
+                <img src="images/taqa.png" alt="TAQA">
+            </div>
+            <div class="client-logo">
+                <img src="images/nesma.png" alt="Nesma">
+            </div>
+            <div class="client-logo">
+                <img src="images/baker-hughes.png" alt="Baker Hughes">
+            </div>
+            <div class="client-logo">
+                <img src="images/oilserv.png" alt="OilServ">
+            </div>
+
+            <!-- Row 2 -->
+            <div class="client-logo">
+                <img src="images/halliburton.png" alt="Halliburton">
+            </div>
+            <div class="client-logo">
+                <img src="images/chevron.png" alt="Chevron">
+            </div>
+            <div class="client-logo">
+                <img src="images/nesr.png" alt="NESR">
+            </div>
+            <div class="client-logo">
+                <img src="images/weatherford.png" alt="Weatherford">
+            </div>
+            <div class="client-logo">
+                <img src="images/expro.png" alt="Expro">
+            </div>
+
+            <!-- Row 3 - Centered -->
+            <div class="clients-row-3">
+                <div class="client-logo">
+                    <img src="images/sanjel.png" alt="Sanjel Energy Services">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="explore.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </a>
+
+        <a href="index.html" class="home-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+
+        <a href="trailer.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </a>
+    </div>
+</body>
+</html>
+
+
+
+

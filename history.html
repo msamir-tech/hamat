@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMAT - History</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: #1a1f2e;
+            position: relative;
+            color: white;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 45px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: white;
+            margin-top: 2px;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px 120px;
+        }
+
+        /* Title */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            padding: 0 20px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        /* Timeline Line */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 35px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #c41230;
+            z-index: 0;
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 220px;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Year Circle */
+        .year-circle {
+            width: 70px;
+            height: 70px;
+            background: #3d5a80;
+            border: 4px solid #5a7a9a;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .year-circle {
+            transform: scale(1.1);
+            background: #4a6a90;
+            box-shadow: 0 0 20px rgba(61, 90, 128, 0.5);
+        }
+
+        /* Timeline Content */
+        .timeline-content {
+            text-align: left;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+
+        .timeline-content p {
+            margin-bottom: 10px;
+        }
+
+        /* Quote */
+        .quote {
+            margin-top: 60px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #c41230;
+            text-align: center;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.6s;
+            padding: 0 20px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .home-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .timeline {
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+            .timeline::before {
+                display: none;
+            }
+            .timeline-item {
+                max-width: 45%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .timeline-item {
+                max-width: 100%;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+            .quote {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/hamat-logo.png" alt="HAMAT" onerror="this.style.display='none'">
+        <div class="logo-text">HAMAT</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <h1 class="page-title">HISTORY</h1>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <!-- 1993 -->
+            <div class="timeline-item">
+                <div class="year-circle">1993</div>
+                <div class="timeline-content">
+                    <p>Hamat Transportation Was Founded In 1993, Beginning Its Operations With Only Two Trucks Working In The Rub' Al Khali (Empty Quarter) Region.</p>
+                </div>
+            </div>
+
+            <!-- 1995 -->
+            <div class="timeline-item">
+                <div class="year-circle">1995</div>
+                <div class="timeline-content">
+                    <p>The Company Succeeded In Securing A Contract With An Oil And Gas Drilling Company In The Same Region, Starting With Ten Trucks. The Contract Included The Supply Of Two Essential Materials — Water And Fuel — Which Formed A Strong Foundation For The Company's Success In Such A Challenging Environment.</p>
+                    <p>The Company Quickly Achieved Remarkable Growth, And With God's Grace, The Number Of Trucks Increased From Two To Seventy Within Just Seven Years.</p>
+                </div>
+            </div>
+
+            <!-- 1999 -->
+            <div class="timeline-item">
+                <div class="year-circle">1999</div>
+                <div class="timeline-content">
+                    <p>Hamat Established Its First Official Site In Dammam, Which Included A Truck Yard And A Maintenance Center. The Company Also Signed Several Contracts With Companies In Ras Tanura And Jubail, Which Helped Expand Its Operations.</p>
+                </div>
+            </div>
+
+            <!-- 2003 -->
+            <div class="timeline-item">
+                <div class="year-circle">2003</div>
+                <div class="timeline-content">
+                    <p>The Company Had Strengthened Its Presence In The Oil And Gas Sector Through Multiple Contracts With Companies Operating In The Rub' Al Khali Region.</p>
+                </div>
+            </div>
+
+            <!-- 2007 -->
+            <div class="timeline-item">
+                <div class="year-circle">2007</div>
+                <div class="timeline-content">
+                    <p>Hamat Launched Its Large-Scale Fleet, Enabling It To Provide Distinguished Services Across The Region.</p>
+                    <p>One Of The Main Factors Behind Hamat's Success Has Been Its Strong Commitment To Safety Regulations, As Well As Its 24/7 Operations And Maintenance Management Teams, Which Ensure Effective Handling Of Challenges And Continuous Operational Excellence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quote -->
+        <p class="quote">"The Company Continues To Uphold This Legacy Of Excellence To This Day."</p>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="participation.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </a>
+
+        <a href="index.html" class="home-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+
+        <a href="contact.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </a>
+    </div>
+</body>
+</html>

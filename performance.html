@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMAT - Performance</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: #0d1a2d;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 45px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: white;
+            margin-top: 2px;
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px 100px;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInDown 0.6s ease forwards;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 1.3rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInDown 0.6s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .subtitle .highlight {
+            color: #dc3545;
+        }
+
+        /* Charts Container */
+        .charts-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Chart Card */
+        .chart-card {
+            background: linear-gradient(145deg, #1a2a40, #0f1825);
+            border-radius: 15px;
+            padding: 25px;
+            flex: 1;
+            min-width: 450px;
+            max-width: 550px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .chart-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .chart-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* MVA Chart */
+        .mva-chart {
+            position: relative;
+            height: 280px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px 40px 40px 60px;
+        }
+
+        .y-axis {
+            position: absolute;
+            left: 10px;
+            top: 20px;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        .y-axis-right {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .bar {
+            width: 45px;
+            background: linear-gradient(180deg, #4a90d9, #2563a8);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            background: linear-gradient(180deg, #5aa0e9, #3573b8);
+            transform: scaleY(1.02);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-90deg);
+            font-size: 0.6rem;
+            color: white;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #888;
+            transform: rotate(-30deg);
+            transform-origin: top left;
+        }
+
+        .line-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #f39c12;
+            border: 2px solid white;
+            border-radius: 50%;
+            z-index: 5;
+        }
+
+        .line-value {
+            position: absolute;
+            font-size: 0.65rem;
+            color: white;
+            background: #f39c12;
+            padding: 2px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .line-value.highlight-green {
+            background: #90EE90;
+            color: #000;
+        }
+
+        .line-value.highlight-red {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Trainings Chart */
+        .trainings-chart {
+            position: relative;
+            height: 280px;
+            padding: 20px 20px 60px 50px;
+        }
+
+        .trainings-y-axis {
+            position: absolute;
+            left: 10px;
+            top: 20px;
+            bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: #888;
+        }
+
+        .target-line {
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            right: 20px;
+            height: 2px;
+            background: #2ecc71;
+        }
+
+        .bars-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 180px;
+            padding-top: 10px;
+        }
+
+        .training-bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .training-bar {
+            width: 25px;
+            background: linear-gradient(180deg, #2c3e50, #1a252f);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+        }
+
+        .training-bar-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.55rem;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .training-label {
+            margin-top: 8px;
+            font-size: 0.55rem;
+            color: #888;
+            transform: rotate(-45deg);
+            transform-origin: top center;
+            white-space: nowrap;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .legend-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: slideUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .home-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .chart-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/hamat-logo.png" alt="HAMAT" onerror="this.style.display='none'">
+        <div class="logo-text">HAMAT</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <h1 class="page-title">PERFORMANCE</h1>
+        <p class="subtitle">Measure performance with <span class="highlight">clear KPIs</span> for<br>continuous improvement.</p>
+
+        <div class="charts-container">
+            <!-- MVA & Manhours Chart -->
+            <div class="chart-card">
+                <h3 class="chart-title">MVA & Manhours</h3>
+                <div class="mva-chart">
+                    <div class="y-axis">
+                        <span>25000000</span>
+                        <span>20000000</span>
+                        <span>15000000</span>
+                        <span>10000000</span>
+                        <span>5000000</span>
+                        <span>0</span>
+                    </div>
+                    <div class="y-axis-right">
+                        <span>3.0</span>
+                        <span>2.5</span>
+                        <span>2.0</span>
+                        <span>1.5</span>
+                        <span>1.0</span>
+                        <span>0.0</span>
+                    </div>
+                    
+                    <div class="bar-group">
+                        <div class="bar" style="height: 100px;">
+                            <span class="bar-value">13662116.08</span>
+                        </div>
+                        <span class="bar-label">2020</span>
+                        <div class="line-point" style="bottom: 25px;"></div>
+                        <div class="line-value" style="bottom: 40px;">0.23</div>
+                    </div>
+                    
+                    <div class="bar-group">
+                        <div class="bar" style="height: 115px;">
+                            <span class="bar-value">13503374.94</span>
+                        </div>
+                        <span class="bar-label">2021</span>
+                        <div class="line-point" style="bottom: 18px;"></div>
+                        <div class="line-value" style="bottom: 33px;">0.14</div>
+                    </div>
+                    
+                    <div class="bar-group">
+                        <div class="bar" style="height: 140px;">
+                            <span class="bar-value">23126200.25</span>
+                        </div>
+                        <span class="bar-label">2022</span>
+                        <div class="line-point" style="bottom: 50px;"></div>
+                        <div class="line-value" style="bottom: 65px;">0.62</div>
+                    </div>
+                    
+                    <div class="bar-group">
+                        <div class="bar" style="height: 180px;">
+                            <span class="bar-value">24737165.37</span>
+                        </div>
+                        <span class="bar-label">2023</span>
+                        <div class="line-point" style="bottom: 135px;"></div>
+                        <div class="line-value highlight-green" style="bottom: 150px;">2.01</div>
+                    </div>
+                    
+                    <div class="bar-group">
+                        <div class="bar" style="height: 120px;">
+                            <span class="bar-value">14523290.63</span>
+                        </div>
+                        <span class="bar-label">2024</span>
+                        <div class="line-point" style="bottom: 170px;"></div>
+                        <div class="line-value highlight-red" style="bottom: 185px;">2.73</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trainings Compliance Chart -->
+            <div class="chart-card">
+                <h3 class="chart-title">Trainings Compliance</h3>
+                <div class="trainings-chart">
+                    <div class="trainings-y-axis">
+                        <span>100%</span>
+                        <span>90%</span>
+                        <span>80%</span>
+                        <span>70%</span>
+                        <span>60%</span>
+                        <span>50%</span>
+                        <span>40%</span>
+                        <span>30%</span>
+                        <span>20%</span>
+                        <span>10%</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="target-line"></div>
+                    <div class="bars-container">
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 135px;">
+                                <span class="training-bar-value">75%</span>
+                            </div>
+                            <span class="training-label">January</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 140px;">
+                                <span class="training-bar-value">78%</span>
+                            </div>
+                            <span class="training-label">February</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 140px;">
+                                <span class="training-bar-value">78%</span>
+                            </div>
+                            <span class="training-label">March</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 142px;">
+                                <span class="training-bar-value">79%</span>
+                            </div>
+                            <span class="training-label">April</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 144px;">
+                                <span class="training-bar-value">80%</span>
+                            </div>
+                            <span class="training-label">May</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 144px;">
+                                <span class="training-bar-value">80%</span>
+                            </div>
+                            <span class="training-label">June</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 151px;">
+                                <span class="training-bar-value" style="color: #2ecc71;">84%</span>
+                            </div>
+                            <span class="training-label">July</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 151px;">
+                                <span class="training-bar-value" style="color: #2ecc71;">84%</span>
+                            </div>
+                            <span class="training-label">August</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 153px;">
+                                <span class="training-bar-value" style="color: #2ecc71;">85%</span>
+                            </div>
+                            <span class="training-label">September</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 0px;"></div>
+                            <span class="training-label">October</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 0px;"></div>
+                            <span class="training-label">November</span>
+                        </div>
+                        <div class="training-bar-group">
+                            <div class="training-bar" style="height: 0px;"></div>
+                            <span class="training-label">December</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #2c3e50;"></div>
+                        <span>Compliance</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #2ecc71;"></div>
+                        <span>Target</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="core-stander.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </a>
+
+        <a href="index.html" class="home-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+
+        <a href="core-stander.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </a>
+    </div>
+</body>
+</html>

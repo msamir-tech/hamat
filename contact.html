@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMAT - Contact Us</title>
+    <link href="css/fonts.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background-image: url('images/contact-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* Page Arrows */
+        .page-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .page-arrow:hover {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .page-arrow.left {
+            left: 25px;
+        }
+
+        .page-arrow.right {
+            right: 25px;
+        }
+
+        .page-arrow svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+
+        .home-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .home-btn span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .page-arrow {
+                width: 45px;
+                height: 45px;
+            }
+            .page-arrow.left {
+                left: 15px;
+            }
+            .page-arrow.right {
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Page Arrow -->
+    <a href="history.html" class="page-arrow left">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </a>
+
+    <!-- Right Page Arrow -->
+    <a href="explore.html" class="page-arrow right">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+    </a>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="history.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </a>
+
+        <a href="index.html" class="home-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+        </a>
+
+        <a href="explore.html" class="nav-btn">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+        </a>
+    </div>
+</body>
+</html>
+
+
